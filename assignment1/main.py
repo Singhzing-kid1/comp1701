@@ -1,3 +1,6 @@
+# Veer Singh, COMP 1701 Fall 2025
+# Oct 1 2025
+
 import math
 import haversine as hs
 
@@ -9,9 +12,10 @@ def main()->None:
     ddLatitude = hs.convertFromDMSToDD(latDegrees, latMinutes, latSeconds)
     ddLongitude = hs.convertFromDMSToDD(longDegrees, longMinutes, longSeconds)
 
-    ddEndingLat = 51.01376194
+    ddEndingLat = 51.01376194 # [3]
     ddEndingLong = 114.13369889
-    avgEarthRadius = 6371008
+
+    avgEarthRadius = 6371008.7714 # [1]
 
     ddRadLatitude = math.radians(ddLatitude)
     ddRadLongitude = math.radians(ddLongitude)
@@ -23,7 +27,7 @@ def main()->None:
 
     distanceToMRU = round((hs.haversine(ddRadDeltaLong, ddRadDeltaLat, ddRadLatitude, ddRadEndingLat) * avgEarthRadius) / 1000.0, 1)
 
-    transitFareAdult = 3.80
+    transitFareAdult = 3.80 # [4]
 
     reducedFare = round(hs.reduceFare(transitFareAdult, distanceToMRU), 2)
 

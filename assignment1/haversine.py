@@ -1,3 +1,6 @@
+# Veer Singh, COMP 1701 Fall 2025
+# Oct 1 2025
+
 import math
 
 def getInputCoord(coord:str):
@@ -12,11 +15,11 @@ def convertFromDMSToDD(degrees:int, minutes:int, seconds:float)->float:
     return degrees + (minutes/60) + (seconds/3600)
 
 def haversine(deltaLong, deltaLat, startLat, endLat)->float:
-    a = math.sin(deltaLat / 2.0) ** 2 + math.cos(startLat) * math.cos(endLat) * math.sin(deltaLong / 2.0) ** 2
+    a = math.sin(deltaLat / 2.0) ** 2 + math.cos(startLat) * math.cos(endLat) * math.sin(deltaLong / 2.0) ** 2 # [2]
     return 2 * math.atan2(math.sqrt(a), math.sqrt(1-a))
 
 def reduceFare(fare:float, distance:float)->float:
-    return fare - (1/(0.4 + math.e ** (3-distance))) 
+    return fare - (1/(0.4 + math.e ** (3-distance))) # From assignment PDF
 
 
 def tellUserResult(fare:float, distance:float, startLat:object, startLong:object)->None:
