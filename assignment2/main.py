@@ -1,44 +1,33 @@
 # Veer Singh, COMP 1701 FALL 2025
-#
+# Nov -6 2025
 
-import math
-
-def askUserForMeasurement(location:str)->int:
-    return int(input(f'please enter the measurement for {location}: '))
-
-def enterAirQualityMeasurements(locations:list, listOfMeasurements:list)->None:
-    for location in locations:
-        listOfMeasurements.append(askUserForMeasurement(location))
-    
-def calculatePercentageOfGoodAirQaulityValues(listOfMeasurements:list)->int:
-    amountOfMeasurements = len(listOfMeasurements);
-
-    goodAirQualityMeasurements = [x for x in listOfMeasurements if x <= 50]
-
-    amountOfGoodMeasurements = len(goodAirQualityMeasurements);
-
-    return (amountOfGoodMeasurements/amountOfMeasurements) * 100
-
-def calculateMeanAirQuality(listOfMeasurements:list)->float:
-    return round(sum(listOfMeasurements)/len(listOfMeasurements), 1)
-
-def calculateMedianAirQuality(listOfMeasurements:list)->float:
-    listOfMeasurements.sort()
-    length = len(listOfMeasurements)
-    medianIndex = length/2 if length % 2 == 0 else math.ceil(length/2)
-
-    return round(listOfMeasurements[medianIndex], 1)
-
-
-
-
+import airQuality as aq      
 
 def main()->None:
+    originalAirQualityMeasurements = [141, 53, 46, 142, 153, 136, 52, 55, 23, 73]
     airQualityMeasurements = []
-    locations = []
-    enterAirQualityMeasurements(locations, airQualityMeasurements)
+    locations = ["Airdrie", "Ardrossan", "Banff South of Bow River", "Brooks Meadowplace", "Calgary Varsity", "Caroline", "Cold Lake South", "Conklin", "Cougar Point Road, Canmore", "Drayton Valley"]
+    aq.enterAirQualityMeasurements(locations, airQualityMeasurements)
 
-    percentageOfGoodAirQualityValues = calculatePercentageOfGoodAirQaulityValues(airQualityMeasurements)
+    originalMean = aq.calculateMeanAirQuality(originalAirQualityMeasurements)
+    currentMean = aq.calculateMeanAirQuality(airQualityMeasurements)
+
+    originalMedian = aq.calculateMedianAirQuality(originalAirQualityMeasurements)
+    currentMedian = aq.calculateMedianAirQuality(airQualityMeasurements)
+
+    originalWorstLocation, originalWorstMeasurement = aq.findWorstLocation(originalAirQualityMeasurements, locations)
+    currentWorstLocation, currentWorstMeasuement = aq.findWorstLocation(airQualityMeasurements, locations)
+
+    percentageOfGoodAirQualityValues = aq.calculatePercentageOfGoodAirQaulityValues(airQualityMeasurements)
+
+    print(f'\nThe mean air quality measurement for the orignal measurements is: {originalMean}')
+    print(f'The mean air quality measurement for the user entered measurements is: {currentMean}\n')
+
+    print(f'The median air quality measurement for the orignal measurements is: {originalMedian}')
+    print(f'The median air quality measurement for the user entered measurements is: {currentMedian}\n')
+
+    print(f'The original location with the worst air quality is: {originalWorstLocation} with a measurement of {originalWorstMeasurement}')
+    print(f'The user entered location with the worst air quality is: {currentWorstLocation} with a measurement of {currentWorstMeasuement}\n')
 
     print(f'{percentageOfGoodAirQualityValues} of the entered locations have air quality values of 50 or lower')
 
